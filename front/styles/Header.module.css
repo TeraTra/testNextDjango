@@ -1,0 +1,8 @@
+.secDiv{
+    display: flex;
+    align-items: center;
+}
+
+.secP{
+    margin: 2%;
+}
