@@ -3,11 +3,12 @@ import Image from 'next/image'
 import Header from '../components/header'
 import { GetServerSideProps } from 'next'
 import axios from 'axios'
-import { useState } from 'react'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
 export default function Home({data}: {data: Data[]}) {
   //const [posts, setPosts] = useState(data);
-
+  const router = useRouter()
   const onDelete = async(id)=>{
     await axios.delete(`http://localhost:8000/deleteData/${id}`)
   }
@@ -20,6 +21,7 @@ export default function Home({data}: {data: Data[]}) {
         <ul key={post.id}>
           <li>{post.title}</li>
           <li>{post.details}</li>
+          <button onClick={()=>router.push(`/${post.id}`)}>Updata</button>
           <button onClick={()=>onDelete(post.id)}>Delete</button>
         </ul>
       ))}
