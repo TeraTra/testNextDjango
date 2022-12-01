@@ -21,3 +21,15 @@ def createData(request):
         if serializer.is_valid():
             serializer.save()
             return Response(status=status.HTTP_201_CREATED)
+
+
+@api_view(['DELETE'])
+def deleteData(request, id):
+    try:
+        post = Post.objects.get(id=id)
+    except Post.DoesNotExist:
+        return Response(status.HTTP_404_NOT_FOUND)
+    
+    if request.method == "DELETE":
+        post.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

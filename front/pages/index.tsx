@@ -3,8 +3,15 @@ import Image from 'next/image'
 import Header from '../components/header'
 import { GetServerSideProps } from 'next'
 import axios from 'axios'
+import { useState } from 'react'
 
 export default function Home({data}: {data: Data[]}) {
+  //const [posts, setPosts] = useState(data);
+
+  const onDelete = async(id)=>{
+    await axios.delete(`http://localhost:8000/deleteData/${id}`)
+  }
+
   return (
     <div>
       <Header/>
@@ -13,6 +20,7 @@ export default function Home({data}: {data: Data[]}) {
         <ul key={post.id}>
           <li>{post.title}</li>
           <li>{post.details}</li>
+          <button onClick={()=>onDelete(post.id)}>Delete</button>
         </ul>
       ))}
       </section>
